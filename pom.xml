@@ -34,10 +34,10 @@
         <maven.compiler.release>11</maven.compiler.release>
         <osgi-annotation.version>8.1.0</osgi-annotation.version>
         <!-- Versions of TCK dependencies -->
-        <rest-assured.version>4.3.0</rest-assured.version>
-        <hamcrest.version>2.1</hamcrest.version>
-        <httpclient.version>4.5.2</httpclient.version>
-        <jackson.version>2.10.1</jackson.version>
+        <rest-assured.version>5.5.1</rest-assured.version>
+        <hamcrest.version>3.0</hamcrest.version>
+        <httpclient.version>4.5.14</httpclient.version>
+        <jackson.version>2.18.2</jackson.version>
         <mp.rest-client-api.version>4.0</mp.rest-client-api.version>
         <jakarta.xml.bind-api.version>3.0.1</jakarta.xml.bind-api.version>
         <jakarta.validation-api.version>3.0.2</jakarta.validation-api.version>
