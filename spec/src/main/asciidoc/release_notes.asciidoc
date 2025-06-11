@@ -19,6 +19,19 @@
 [[release_notes]]
 == Release Notes
 
+[[release_notes_41]]
+=== Release Notes for MicroProfile OpenAPI 4.1
+
+A full list of changes delivered in the 4.1 release can be found at link:https://github.com/microprofile/microprofile-open-api/milestone/8?closed=1[MicroProfile OpenAPI 4.1 Milestone]
+
+[[api_changes_41]]
+==== API/SPI changes
+
+* Model API changes
+** New `OpenAPI` property `jsonSchemaDialect` (https://github.com/microprofile/microprofile-open-api/issues/660[660])
+** New methods added to `Extensible`: `getExtension(String)` and `hasExtension(String)` (https://github.com/microprofile/microprofile-open-api/issues/666[666])
+* Add `@Target` to `@DependentRequired`, `@DependentSchema` and `@SchemaProperty` where it was missing (https://github.com/microprofile/microprofile-open-api/issues/676)[676])
+
 [[release_notes_40]]
 === Release Notes for MicroProfile OpenAPI 4.0
 
