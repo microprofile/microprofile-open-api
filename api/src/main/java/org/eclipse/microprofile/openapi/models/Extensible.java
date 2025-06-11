@@ -82,6 +82,7 @@ public interface Extensible<T extends Extensible<T>> {
      * @param name
      *            the key used to access the extension object. Always prefixed by "x-".
      * @return {@code true} if an extension with the given name is present, otherwise {@code false}
+     * @since 4.1
      */
     default boolean hasExtension(String name) {
         Map<String, Object> map = getExtensions();
@@ -97,6 +98,7 @@ public interface Extensible<T extends Extensible<T>> {
      * @param name
      *            the key used to access the extension object. Always prefixed by "x-".
      * @return the corresponding extension object, or {@code null} if no extension with the given name is present
+     * @since 4.1
      */
     default Object getExtension(String name) {
         Map<String, Object> map = getExtensions();
