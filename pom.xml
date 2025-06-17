@@ -37,7 +37,7 @@
         <rest-assured.version>5.5.5</rest-assured.version>
         <hamcrest.version>3.0</hamcrest.version>
         <httpclient.version>4.5.14</httpclient.version>
-        <jackson.version>2.18.3</jackson.version>
+        <jackson.version>2.19.1</jackson.version>
         <mp.rest-client-api.version>4.0</mp.rest-client-api.version>
         <jakarta.xml.bind-api.version>3.0.1</jakarta.xml.bind-api.version>
         <jakarta.validation-api.version>3.0.2</jakarta.validation-api.version>
