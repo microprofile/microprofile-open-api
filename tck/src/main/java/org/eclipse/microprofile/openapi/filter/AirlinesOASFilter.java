@@ -128,7 +128,7 @@ public class AirlinesOASFilter implements OASFilter {
         if (content != null) {
             if (content.hasMediaType("application/json")) {
                 Schema schema = content.getMediaType("application/json").getSchema();
-                if ("child - id of the new review".equals(schema.getDescription())) {
+                if (schema != null && "child - id of the new review".equals(schema.getDescription())) {
                     schema.setDescription("parent - id of the new review");
                 }
             }
