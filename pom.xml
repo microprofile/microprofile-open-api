@@ -19,7 +19,7 @@
     <parent>
         <groupId>org.eclipse.microprofile</groupId>
         <artifactId>microprofile-parent</artifactId>
-        <version>2.11</version>
+        <version>2.12-RC1</version>
     </parent>
 
     <groupId>org.eclipse.microprofile.openapi</groupId>
@@ -58,7 +58,7 @@
         <url>https://github.com/eclipse/microprofile-open-api</url>
         <connection>scm:git:https://github.com/eclipse/microprofile-open-api.git</connection>
         <developerConnection>scm:git:git@github.com:eclipse/microprofile-open-api.git</developerConnection>
-        <tag>3.1-SNAPSHOT</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
