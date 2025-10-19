@@ -17,11 +17,16 @@ package org.eclipse.microprofile.openapi.apps.scanconfig.a;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import org.eclipse.microprofile.openapi.annotations.ExternalDocumentation;
 
 @Path("a")
+@ExternalDocumentation(description = "Find more information about this application",
+        url = "https://github.com/microprofile/microprofile-open-api/blob/main/tck/src/main/java/org/eclipse/microprofile/openapi/apps/scanconfig/ScanConfigApplication.java")
 public class AResource {
 
     @GET
+    @ExternalDocumentation(description = "Find more information about this application resource",
+            url = "https://github.com/microprofile/microprofile-open-api/blob/main/tck/src/main/java/org/eclipse/microprofile/openapi/apps/scanconfig/a/AResource.java")
     public String get() {
         return "a";
     }
