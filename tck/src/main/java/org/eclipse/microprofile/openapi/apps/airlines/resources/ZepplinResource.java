@@ -57,7 +57,7 @@ public class ZepplinResource {
     @HEAD
     @APIResponse(responseCode = "200", description = "Review deleted")
     @APIResponse(responseCode = "404", description = "Review not found")
-    @Operation(summary = "Deprecate outdated airship technology", operationId = "deprecateZepplin")
+    @Operation(summary = "Deprecate outdated airship technology", operationId = "headZepplin")
     @Produces("text/plain")
     @SecurityRequirement(name = "mutualTLSScheme", scopes = "zepplinScope")
     @Parameter(name = "string", description = "something about a string", in = ParameterIn.QUERY,
@@ -70,7 +70,7 @@ public class ZepplinResource {
     @GET
     @APIResponse(responseCode = "200", description = "Review deleted")
     @APIResponse(responseCode = "404", description = "Review not found")
-    @Operation(summary = "Deprecate outdated airship technology", operationId = "deprecateZepplin")
+    @Operation(summary = "Deprecate outdated airship technology", operationId = "getZepplin")
     @Produces("text/plain")
     @SecurityRequirement(name = "mutualTLSScheme", scopes = "zepplinScope")
     @Parameter(name = "string", description = "something about a string", in = ParameterIn.QUERY,
