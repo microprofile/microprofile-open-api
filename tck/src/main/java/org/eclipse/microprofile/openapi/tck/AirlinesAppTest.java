@@ -32,6 +32,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.hasToString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
@@ -312,10 +313,10 @@ public class AirlinesAppTest extends AppTestBase {
         vr.body("paths.'/user/username/{username}'.delete.responses.'404'.description", equalTo("User not found"));
 
         // @APIResponse at class level combined with method level
-        vr.body("paths.'/user/username/{username}'.patch.responses", aMapWithSize(2));
-        vr.body("paths.'/user/username/{username}'.patch.responses.'200'.description",
-                equalTo("Password was changed successfully"));
-        vr.body("paths.'/user/username/{username}'.patch.responses.'400'.description", equalTo("Invalid request"));
+        vr.body("paths.'/user/logout'.get.responses", aMapWithSize(2));
+        vr.body("paths.'/user/logout'.get.responses.'200'.description",
+                equalTo("Successful user logout."));
+        vr.body("paths.'/user/logout'.get.responses.'400'.description", equalTo("Invalid request"));
     }
 
     @Test(dataProvider = "formatProvider")
@@ -830,6 +831,27 @@ public class AirlinesAppTest extends AppTestBase {
         // Example in Parameter Content
         vr.body("paths.'/reviews/users/{user}'.get.parameters.find{ it.name=='user'}.content.'*/*'.examples.example.value",
                 equalTo("bsmith"));
+    }
+
+    @Test(dataProvider = "formatProvider")
+    public void testExamplesInHeaders(String type) {
+        ValidatableResponse vr = callEndpoint(type);
+
+        // Multiple examples in Header
+        vr.body("paths.'/user/username/{username}'.patch.responses.'200'.headers.'X-Password-Strength'",
+                hasKey("examples"));
+
+        // Implementations MAY parse the example to the data type of the schema, so here we leniently test
+        // the value as a string using String#valueOf (via hasToString).
+
+        vr.body("paths.'/user/username/{username}'.patch.responses.'200'.headers.'X-Password-Strength'.examples", allOf(
+                hasEntry(equalTo("strong"), hasEntry(equalTo("value"), hasToString("10"))),
+                hasEntry(equalTo("adequate"), hasEntry(equalTo("value"), hasToString("8.5"))),
+                hasEntry(equalTo("weak"), hasEntry(equalTo("value"), hasToString("5.1")))));
+
+        // Single example in header
+        vr.body("paths.'/user/username/{username}'.patch.responses.'400'.headers.'X-Password-Strength'",
+                hasEntry(equalTo("example"), hasToString("0")));
     }
 
     @Test(dataProvider = "formatProvider")
