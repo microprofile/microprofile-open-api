@@ -19,6 +19,16 @@
 [[release_notes]]
 == Release Notes
 
+[[release_notes_42]]
+=== Release Notes for MicroProfile OpenAPI 4.2
+
+A full list of changes delivered in the 4.2 release can be found at link:https://github.com/microprofile/microprofile-open-api/milestone/14?closed=1[MicroProfile OpenAPI 4.2 Milestone]
+
+[[api_changes_42]]
+==== API/SPI changes
+
+* Add `example` and `examples` to `@Header` and verify implementation support in TCK (https://github.com/microprofile/microprofile-open-api/issues/697)[697])
+
 [[release_notes_41]]
 === Release Notes for MicroProfile OpenAPI 4.1
 

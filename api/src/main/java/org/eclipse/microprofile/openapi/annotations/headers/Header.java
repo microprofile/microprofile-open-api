@@ -23,10 +23,18 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.eclipse.microprofile.openapi.annotations.extensions.Extension;
+import org.eclipse.microprofile.openapi.annotations.media.ExampleObject;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /**
- * Describes a single header object
+ * Describes a single header object.
+ * <p>
+ * Note that although the {@linkplain #org.eclipse.microprofile.openapi.models.headers.Header header} model contains a
+ * {@link org.eclipse.microprofile.openapi.models.headers.Header#getContent() content} property, modeling that
+ * information using annotations is not possible because the content annotation's
+ * {@link org.eclipse.microprofile.openapi.annotations.media.Content#encoding() encoding} references this annotation, a
+ * cycle disallowed by the Java language.
+ * </p>
  *
  * @see <a href= "https://spec.openapis.org/oas/v3.1.0.html#header-object">OpenAPI Specification Header Object</a>
  **/
@@ -102,4 +110,30 @@ public @interface Header {
      * @since 3.1
      */
     Extension[] extensions() default {};
+
+    /**
+     * Example of the header's potential value. The example SHOULD match the specified schema and encoding properties if
+     * present. The {@code example} field is mutually exclusive of the {@link #examples() examples} field. Furthermore,
+     * if referencing a {@link #schema() schema} that contains an example, the {@code example} value SHALL override the
+     * example provided by the schema. To represent examples of media types that cannot naturally be represented in JSON
+     * or YAML, a string value can contain the example with escaping where necessary.
+     *
+     * @return an example of the header
+     *
+     * @since 4.2
+     **/
+    String example() default "";
+
+    /**
+     * Examples of the header's potential value. Each example SHOULD contain a value in the correct format as specified
+     * in the parameter encoding. The {@code examples} field is mutually exclusive of the {@link #example() example}
+     * field. Furthermore, if referencing a schema that contains an example, the {@code examples} value SHALL override
+     * the example provided by the schema.
+     *
+     * @return the list of examples for this header
+     *
+     * @since 4.2
+     **/
+    ExampleObject[] examples() default {};
+
 }

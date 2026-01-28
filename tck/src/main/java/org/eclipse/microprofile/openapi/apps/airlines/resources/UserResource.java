@@ -205,7 +205,18 @@ public class UserResource {
 
     @PATCH
     @Path("/username/{username}")
-    @APIResponse(responseCode = "200", description = "Password was changed successfully")
+    @APIResponse(responseCode = "200", description = "Password was changed successfully", headers = {
+            @Header(name = "X-Password-Strength", description = "Rating of the strength of the new password value.",
+                    schema = @Schema(type = SchemaType.NUMBER), examples = {
+                            @ExampleObject(name = "strong", summary = "Password is strong", value = "10"),
+                            @ExampleObject(name = "adequate", summary = "Password is adequate", value = "8.5"),
+                            @ExampleObject(name = "weak", summary = "Password is weak", value = "5.1"),
+                    })
+    })
+    @APIResponse(responseCode = "400", description = "New password is too weak", headers = {
+            @Header(name = "X-Password-Strength", description = "Rating of the strength of the new password value.",
+                    schema = @Schema(type = SchemaType.NUMBER), example = "0")
+    })
     @Operation(summary = "Change user password", description = "This changes the password for the logged in user.",
                operationId = "changePassword")
     @SecurityRequirementsSet(value = {
