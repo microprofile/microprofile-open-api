@@ -115,8 +115,10 @@ public @interface Header {
      * Example of the header's potential value. The example SHOULD match the specified schema and encoding properties if
      * present. The {@code example} field is mutually exclusive of the {@link #examples() examples} field. Furthermore,
      * if referencing a {@link #schema() schema} that contains an example, the {@code example} value SHALL override the
-     * example provided by the schema. To represent examples of media types that cannot naturally be represented in JSON
-     * or YAML, a string value can contain the example with escaping where necessary.
+     * example provided by the schema.
+     * <p>
+     * If the media type associated with the example allows parsing into an object, it may be converted from a string.
+     * </p>
      *
      * @return an example of the header
      *
