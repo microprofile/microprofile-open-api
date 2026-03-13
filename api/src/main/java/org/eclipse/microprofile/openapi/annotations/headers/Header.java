@@ -87,7 +87,13 @@ public @interface Header {
      * is present. This may create validation errors when the header is required.
      *
      * @return whether or not the header allows empty values
+     *
+     * @deprecated The OpenAPI specification states that {@code allowEmptyValue} is only valid for {@code query}
+     *             parameters. As the {@code Header} model is a specialized {@code Parameter}, this attribute is not
+     *             valid and should not be used. Removal of this property is planned for the next major release of
+     *             MicroProfile OpenAPI.
      **/
+    @Deprecated(since = "4.2", forRemoval = true)
     boolean allowEmptyValue() default false;
 
     /**
