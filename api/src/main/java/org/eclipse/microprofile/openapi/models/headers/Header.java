@@ -139,7 +139,13 @@ public interface Header extends Constructible, Extensible<Header>, Reference<Hea
      * Returns the allowEmptyValue property from a Header instance.
      *
      * @return the ability to pass empty-valued parameters
+     *
+     * @deprecated The OpenAPI specification states that {@code allowEmptyValue} is only valid for {@code query}
+     *             parameters. As the {@code Header} model is a specialized {@code Parameter}, this attribute is not
+     *             valid and should not be used. Removal of this property is planned for the next major release of
+     *             MicroProfile OpenAPI.
      **/
+    @Deprecated(since = "4.2", forRemoval = true)
     Boolean getAllowEmptyValue();
 
     /**
@@ -147,7 +153,13 @@ public interface Header extends Constructible, Extensible<Header>, Reference<Hea
      *
      * @param allowEmptyValue
      *            specify the ability to pass empty-valued parameters
+     *
+     * @deprecated The OpenAPI specification states that {@code allowEmptyValue} is only valid for {@code query}
+     *             parameters. As the {@code Header} model is a specialized {@code Parameter}, this attribute is not
+     *             valid and should not be used. Removal of this property is planned for the next major release of
+     *             MicroProfile OpenAPI.
      */
+    @Deprecated(since = "4.2", forRemoval = true)
     void setAllowEmptyValue(Boolean allowEmptyValue);
 
     /**
@@ -156,7 +168,13 @@ public interface Header extends Constructible, Extensible<Header>, Reference<Hea
      * @param allowEmptyValue
      *            specify the ability to pass empty-valued parameters
      * @return the current Header instance
+     *
+     * @deprecated The OpenAPI specification states that {@code allowEmptyValue} is only valid for {@code query}
+     *             parameters. As the {@code Header} model is a specialized {@code Parameter}, this attribute is not
+     *             valid and should not be used. Removal of this property is planned for the next major release of
+     *             MicroProfile OpenAPI.
      */
+    @Deprecated(since = "4.2", forRemoval = true)
     default Header allowEmptyValue(Boolean allowEmptyValue) {
         setAllowEmptyValue(allowEmptyValue);
         return this;
