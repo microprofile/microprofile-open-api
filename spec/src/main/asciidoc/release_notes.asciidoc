@@ -29,6 +29,12 @@ A full list of changes delivered in the 4.2 release can be found at link:https:/
 
 * Add `example` and `examples` to `@Header` and verify implementation support in TCK (https://github.com/microprofile/microprofile-open-api/issues/697)[697])
 
+[[other_changes_42]]
+==== Other Changes
+
+* Add processing of Jakarta Bean Validation `@Digits` annotation (https://github.com/eclipse/microprofile-open-api/issues/717[717])
+
+
 [[release_notes_41]]
 === Release Notes for MicroProfile OpenAPI 4.1
 

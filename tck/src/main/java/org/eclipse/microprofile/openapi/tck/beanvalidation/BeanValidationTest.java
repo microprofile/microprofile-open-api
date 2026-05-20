@@ -16,7 +16,9 @@
 package org.eclipse.microprofile.openapi.tck.beanvalidation;
 
 import static org.eclipse.microprofile.openapi.tck.Groups.BEAN_VALIDATION;
+import static org.eclipse.microprofile.openapi.tck.utils.TCKMatchers.comparesEqualToNumber;
 import static org.eclipse.microprofile.openapi.tck.utils.TCKMatchers.itemOrSingleton;
+import static org.eclipse.microprofile.openapi.tck.utils.TCKMatchers.patternMatchesValue;
 import static org.hamcrest.Matchers.hasEntry;
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.is;
@@ -33,6 +35,8 @@ import org.testng.annotations.Test;
 import io.restassured.response.ValidatableResponse;
 
 public class BeanValidationTest extends AppTestBase {
+
+    private static final String MULTIPLE_OF = "multipleOf";
 
     @Deployment(testable = false)
     public static WebArchive buildApp() {
@@ -179,6 +183,41 @@ public class BeanValidationTest extends AppTestBase {
     public void defaultAndOtherGroupsTest(String format) {
         ValidatableResponse vr = callEndpoint(format);
         assertProperty(vr, "defaultAndOtherGroups", hasEntry("minLength", 1));
+    }
+
+    @Test(dataProvider = "formatProvider", groups = BEAN_VALIDATION)
+    public void integerDigitsTest(String format) {
+        ValidatableResponse vr = callEndpoint(format);
+        assertProperty(vr, "digitsInt32", hasEntry(is(MULTIPLE_OF), comparesEqualToNumber(1)));
+        assertProperty(vr, "digitsInt64", hasEntry(is(MULTIPLE_OF), comparesEqualToNumber(1)));
+        assertProperty(vr, "digitsInteger", hasEntry(is(MULTIPLE_OF), comparesEqualToNumber(1)));
+    }
+
+    @Test(dataProvider = "formatProvider", groups = BEAN_VALIDATION)
+    public void decimalDigitsTest(String format) {
+        ValidatableResponse vr = callEndpoint(format);
+        assertProperty(vr, "digitsFloat32", hasEntry(is(MULTIPLE_OF), comparesEqualToNumber(0.001)));
+        assertProperty(vr, "digitsFloat64", hasEntry(is(MULTIPLE_OF), comparesEqualToNumber(0.000001)));
+        assertProperty(vr, "digitsDecimal", hasEntry(is(MULTIPLE_OF), comparesEqualToNumber(0.0000000001)));
+    }
+
+    @Test(dataProvider = "formatProvider", groups = BEAN_VALIDATION)
+    public void customIntegerDigitsTest(String format) {
+        ValidatableResponse vr = callEndpoint(format);
+        assertProperty(vr, "digitsCustomInteger", hasEntry(is(MULTIPLE_OF), comparesEqualToNumber(1000)));
+    }
+
+    @Test(dataProvider = "formatProvider", groups = BEAN_VALIDATION)
+    public void stringDigitsTest(String format) {
+        final String patternAttribute = "digitsString.pattern";
+        ValidatableResponse vr = callEndpoint(format);
+        // Constraint allows up to 10 integer digits and up to 5 fractional digits
+        assertProperty(vr, patternAttribute, patternMatchesValue("1"));
+        assertProperty(vr, patternAttribute, patternMatchesValue("1.5"));
+        assertProperty(vr, patternAttribute, patternMatchesValue("123456789.1234"));
+        assertProperty(vr, patternAttribute, patternMatchesValue("1234567890.12345"));
+        assertProperty(vr, patternAttribute, not(patternMatchesValue("12345678901.12345")));
+        assertProperty(vr, patternAttribute, not(patternMatchesValue("1234567890.123456")));
     }
 
     @Test(dataProvider = "formatProvider", groups = BEAN_VALIDATION)

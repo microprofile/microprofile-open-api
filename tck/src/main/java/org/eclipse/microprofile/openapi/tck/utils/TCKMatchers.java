@@ -28,6 +28,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.regex.Pattern;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -41,10 +42,18 @@ public final class TCKMatchers {
     /**
      * Compares two numbers as BigDecimals
      */
-    private static final Comparator<Number> NUMERIC_COMPARATOR = (value1, value2) -> {
-        final BigDecimal decimal1 = BigDecimal.valueOf(value1.doubleValue());
-        final BigDecimal decimal2 = BigDecimal.valueOf(value2.doubleValue());
-        return decimal1.compareTo(decimal2);
+    private static final Comparator<Number> NUMERIC_COMPARATOR = new Comparator<>() {
+        @Override
+        public String toString() {
+            return getClass().getName();
+        }
+
+        @Override
+        public int compare(Number value1, Number value2) {
+            final BigDecimal decimal1 = new BigDecimal(value1.toString());
+            final BigDecimal decimal2 = new BigDecimal(value2.toString());
+            return decimal1.compareTo(decimal2);
+        }
     };
 
     /**
@@ -191,5 +200,36 @@ public final class TCKMatchers {
         Matcher<T> entryMissing = (Matcher<T>) not(hasKey(entryName));
 
         return allOf(isA(java.util.Map.class), either(hasEntry).or(entryMissing));
+    }
+
+    /**
+     * Creates a matcher which matches when the given value matches a string compiled to a regular expression pattern.
+     *
+     * @param value
+     *            a value to match against the regular expression
+     * @return the matcher
+     */
+    public static Matcher<String> patternMatchesValue(String value) {
+        return new PatternMatchable(value);
+    }
+
+    private static class PatternMatchable extends TypeSafeDiagnosingMatcher<String> {
+        String value;
+
+        PatternMatchable(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public void describeTo(Description desc) {
+            desc.appendText("A pattern matching string ").appendValue(value);
+        }
+
+        @Override
+        protected boolean matchesSafely(String item, Description mismatchDescription) {
+            Pattern pattern = Pattern.compile(item);
+            mismatchDescription.appendText("pattern was: ").appendValue(pattern);
+            return pattern.matcher(this.value).matches();
+        }
     }
 }
