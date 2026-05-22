@@ -86,6 +86,15 @@ public class BeanValidationData {
     @Digits(integer = 20, fraction = 10)
     private BigDecimal digitsDecimal;
 
+    @Digits(integer = 5, fraction = 0)
+    private float digitsFloat32AsInteger;
+
+    @Digits(integer = 10, fraction = 0)
+    private double digitsFloat64AsInteger;
+
+    @Digits(integer = 20, fraction = 0)
+    private BigDecimal digitsDecimalAsInteger;
+
     @Digits(integer = 20, fraction = 0)
     private BigInteger digitsInteger;
 
@@ -94,7 +103,7 @@ public class BeanValidationData {
     private BigInteger digitsCustomInteger;
 
     @Digits(integer = 10, fraction = 5)
-    private BigInteger digitsString;
+    private String digitsString;
 
     @Max(5)
     private int maxInt;
@@ -252,6 +261,30 @@ public class BeanValidationData {
         this.digitsDecimal = digitsDecimal;
     }
 
+    public float getDigitsFloat32AsInteger() {
+        return digitsFloat32AsInteger;
+    }
+
+    public void setDigitsFloat32AsInteger(float digitsFloat32AsInteger) {
+        this.digitsFloat32AsInteger = digitsFloat32AsInteger;
+    }
+
+    public double getDigitsFloat64AsInteger() {
+        return digitsFloat64AsInteger;
+    }
+
+    public void setDigitsFloat64AsInteger(double digitsFloat64AsInteger) {
+        this.digitsFloat64AsInteger = digitsFloat64AsInteger;
+    }
+
+    public BigDecimal getDigitsDecimalAsInteger() {
+        return digitsDecimalAsInteger;
+    }
+
+    public void setDigitsDecimalAsInteger(BigDecimal digitsDecimalAsInteger) {
+        this.digitsDecimalAsInteger = digitsDecimalAsInteger;
+    }
+
     public BigInteger getDigitsInteger() {
         return digitsInteger;
     }
@@ -268,11 +301,11 @@ public class BeanValidationData {
         this.digitsCustomInteger = digitsCustomInteger;
     }
 
-    public BigInteger getDigitsString() {
+    public String getDigitsString() {
         return digitsString;
     }
 
-    public void setDigitsString(BigInteger digitsString) {
+    public void setDigitsString(String digitsString) {
         this.digitsString = digitsString;
     }
 

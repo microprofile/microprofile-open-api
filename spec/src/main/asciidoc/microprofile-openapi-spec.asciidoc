@@ -621,7 +621,7 @@ maxProperties = b`
 | `@DecimalMax(value = a, inclusive = false)` | `number` or `integer` | `exclusiveMaximum = a`
 | `@DecimalMin(value = a)` | `number` or `integer` | `minimum = a`
 | `@DecimalMin(value = a, inclusive = false)` | `number` or `integer` | `exclusiveMinimum = a`
-| `@Digits(integer = <any>, fraction = f)` | `number` or `integer` | `multipleOf` equal to `1` for integer types or 10^-f for non-integer types
+| `@Digits(integer = <any>, fraction = f)` | `number` | `multipleOf = 1` when `fraction` is less than 1, else `multipleOf` equal to 10^-f
 | `@Digits(integer = i, fraction = f)` | `string` | `pattern` matching any string value that satisfies the constraint
 | `@Max(a)` | `number` or `integer` | `maximum = a`
 | `@Min(a)` | `number` or `integer` | `minimum = a`

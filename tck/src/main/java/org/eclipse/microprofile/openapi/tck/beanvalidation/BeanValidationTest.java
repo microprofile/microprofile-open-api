@@ -19,10 +19,13 @@ import static org.eclipse.microprofile.openapi.tck.Groups.BEAN_VALIDATION;
 import static org.eclipse.microprofile.openapi.tck.utils.TCKMatchers.comparesEqualToNumber;
 import static org.eclipse.microprofile.openapi.tck.utils.TCKMatchers.itemOrSingleton;
 import static org.eclipse.microprofile.openapi.tck.utils.TCKMatchers.patternMatchesValue;
+import static org.hamcrest.Matchers.either;
 import static org.hamcrest.Matchers.hasEntry;
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
+
+import java.util.Arrays;
 
 import org.eclipse.microprofile.openapi.apps.beanvalidation.BeanValidationApp;
 import org.eclipse.microprofile.openapi.tck.AppTestBase;
@@ -185,12 +188,23 @@ public class BeanValidationTest extends AppTestBase {
         assertProperty(vr, "defaultAndOtherGroups", hasEntry("minLength", 1));
     }
 
+    @SuppressWarnings("unchecked")
     @Test(dataProvider = "formatProvider", groups = BEAN_VALIDATION)
-    public void integerDigitsTest(String format) {
+    public <T extends Object> void integerDigitsTest(String format) {
+        Matcher<T> isInteger = (Matcher<T>) hasEntry(is("type"), itemOrSingleton("integer"));
+        Matcher<T> isMultipleOfOne = (Matcher<T>) hasEntry(is(MULTIPLE_OF), comparesEqualToNumber(1));
+
         ValidatableResponse vr = callEndpoint(format);
-        assertProperty(vr, "digitsInt32", hasEntry(is(MULTIPLE_OF), comparesEqualToNumber(1)));
-        assertProperty(vr, "digitsInt64", hasEntry(is(MULTIPLE_OF), comparesEqualToNumber(1)));
-        assertProperty(vr, "digitsInteger", hasEntry(is(MULTIPLE_OF), comparesEqualToNumber(1)));
+
+        for (String property : Arrays.asList(
+                "digitsInt32",
+                "digitsInt64",
+                "digitsInteger",
+                "digitsFloat32AsInteger",
+                "digitsFloat64AsInteger",
+                "digitsDecimalAsInteger")) {
+            assertProperty(vr, property, either(isInteger).or(isMultipleOfOne));
+        }
     }
 
     @Test(dataProvider = "formatProvider", groups = BEAN_VALIDATION)
