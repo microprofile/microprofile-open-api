@@ -599,7 +599,7 @@ In some cases, additional schema restrictions can be inferred from Jakarta Bean 
 
 If an implementation includes support for the Jakarta Bean Validation specification, then it must also process Jakarta Bean Validation annotations when creating OpenAPI schemas. Such implementations must add the properties listed in the table below to the schema model when:
 
-* the annotation is applied to to an element for which a schema is generated and
+* the annotation is applied to an element for which a schema is generated and
 * the annotation and generated schema type are listed together in the table below and
 * the annotation has a `group` attribute which is empty or includes `jakarta.validation.groups.Default` and
 * the user has not set any of the relevant property values using other annotations and
@@ -611,19 +611,18 @@ If an implementation includes support for the Jakarta Bean Validation specificat
 | `@NotEmpty` | `array` | `minItems = 1`
 | `@NotEmpty` | `object` | `minProperties = 1`
 | `@NotBlank` | `string` | `pattern = \S`
-| `@Size(min = a, max = b)` | `string`
-| `minLength = a +
+| `@Size(min = a, max = b)` | `string` | `minLength = a +
 maxLenth = b`
-| `@Size(min = a, max = b)` | `array`
-| `minItems = a +
+| `@Size(min = a, max = b)` | `array` | `minItems = a +
 maxItems = b`
-| `@Size(min = a, max = b)` | `object`
-| `minProperties = a +
+| `@Size(min = a, max = b)` | `object` | `minProperties = a +
 maxProperties = b`
 | `@DecimalMax(value = a)` | `number` or `integer` | `maximum = a`
 | `@DecimalMax(value = a, inclusive = false)` | `number` or `integer` | `exclusiveMaximum = a`
 | `@DecimalMin(value = a)` | `number` or `integer` | `minimum = a`
 | `@DecimalMin(value = a, inclusive = false)` | `number` or `integer` | `exclusiveMinimum = a`
+| `@Digits(integer = <any>, fraction = f)` | `number` | `multipleOf = 1` when `fraction` is less than 1, else `multipleOf` equal to 10^-f
+| `@Digits(integer = i, fraction = f)` | `string` | `pattern` matching any string value that satisfies the constraint
 | `@Max(a)` | `number` or `integer` | `maximum = a`
 | `@Min(a)` | `number` or `integer` | `minimum = a`
 | `@Negative` | `number` or `integer` | `exclusiveMaximum = 0`

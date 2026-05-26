@@ -16,6 +16,7 @@
 package org.eclipse.microprofile.openapi.apps.beanvalidation;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Negative;
@@ -68,6 +70,40 @@ public class BeanValidationData {
 
     @DecimalMin(value = "3.25", inclusive = false)
     private BigDecimal minDecimalExclusive;
+
+    @Digits(integer = 9, fraction = 0)
+    private int digitsInt32;
+
+    @Digits(integer = 18, fraction = 0)
+    private int digitsInt64;
+
+    @Digits(integer = 5, fraction = 3)
+    private float digitsFloat32;
+
+    @Digits(integer = 10, fraction = 6)
+    private double digitsFloat64;
+
+    @Digits(integer = 20, fraction = 10)
+    private BigDecimal digitsDecimal;
+
+    @Digits(integer = 5, fraction = 0)
+    private float digitsFloat32AsInteger;
+
+    @Digits(integer = 10, fraction = 0)
+    private double digitsFloat64AsInteger;
+
+    @Digits(integer = 20, fraction = 0)
+    private BigDecimal digitsDecimalAsInteger;
+
+    @Digits(integer = 20, fraction = 0)
+    private BigInteger digitsInteger;
+
+    @Digits(integer = 20, fraction = 0)
+    @Schema(multipleOf = 1000)
+    private BigInteger digitsCustomInteger;
+
+    @Digits(integer = 10, fraction = 5)
+    private String digitsString;
 
     @Max(5)
     private int maxInt;
@@ -183,6 +219,94 @@ public class BeanValidationData {
 
     public void setMinDecimalExclusive(BigDecimal minDecimalExclusive) {
         this.minDecimalExclusive = minDecimalExclusive;
+    }
+
+    public int getDigitsInt32() {
+        return digitsInt32;
+    }
+
+    public void setDigitsInt32(int digitsInt32) {
+        this.digitsInt32 = digitsInt32;
+    }
+
+    public int getDigitsInt64() {
+        return digitsInt64;
+    }
+
+    public void setDigitsInt64(int digitsInt64) {
+        this.digitsInt64 = digitsInt64;
+    }
+
+    public float getDigitsFloat32() {
+        return digitsFloat32;
+    }
+
+    public void setDigitsFloat32(float digitsFloat32) {
+        this.digitsFloat32 = digitsFloat32;
+    }
+
+    public double getDigitsFloat64() {
+        return digitsFloat64;
+    }
+
+    public void setDigitsFloat64(double digitsFloat64) {
+        this.digitsFloat64 = digitsFloat64;
+    }
+
+    public BigDecimal getDigitsDecimal() {
+        return digitsDecimal;
+    }
+
+    public void setDigitsDecimal(BigDecimal digitsDecimal) {
+        this.digitsDecimal = digitsDecimal;
+    }
+
+    public float getDigitsFloat32AsInteger() {
+        return digitsFloat32AsInteger;
+    }
+
+    public void setDigitsFloat32AsInteger(float digitsFloat32AsInteger) {
+        this.digitsFloat32AsInteger = digitsFloat32AsInteger;
+    }
+
+    public double getDigitsFloat64AsInteger() {
+        return digitsFloat64AsInteger;
+    }
+
+    public void setDigitsFloat64AsInteger(double digitsFloat64AsInteger) {
+        this.digitsFloat64AsInteger = digitsFloat64AsInteger;
+    }
+
+    public BigDecimal getDigitsDecimalAsInteger() {
+        return digitsDecimalAsInteger;
+    }
+
+    public void setDigitsDecimalAsInteger(BigDecimal digitsDecimalAsInteger) {
+        this.digitsDecimalAsInteger = digitsDecimalAsInteger;
+    }
+
+    public BigInteger getDigitsInteger() {
+        return digitsInteger;
+    }
+
+    public void setDigitsInteger(BigInteger digitsInteger) {
+        this.digitsInteger = digitsInteger;
+    }
+
+    public BigInteger getDigitsCustomInteger() {
+        return digitsCustomInteger;
+    }
+
+    public void setDigitsCustomInteger(BigInteger digitsCustomInteger) {
+        this.digitsCustomInteger = digitsCustomInteger;
+    }
+
+    public String getDigitsString() {
+        return digitsString;
+    }
+
+    public void setDigitsString(String digitsString) {
+        this.digitsString = digitsString;
     }
 
     public int getMaxInt() {
