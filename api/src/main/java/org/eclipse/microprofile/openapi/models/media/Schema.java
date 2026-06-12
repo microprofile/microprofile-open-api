@@ -39,6 +39,13 @@ import org.eclipse.microprofile.openapi.models.Reference;
  * Any time a Schema Object can be used, a Reference Object can be used in its place. This allows referencing an
  * existing definition instead of defining the same Schema again.
  *
+ * <h3 id="schema-extensions">Extensions</h3> Although Schema is {@link Extensible}, the behavior of extensions is only
+ * defined for the OAS schema dialect identified by URI {@code https://spec.openapis.org/oas/3.1/dialect/base} (the
+ * default if not specified). For this dialect, Schema instances will consider all unknown properties to be extensions.
+ *
+ * The behavior is undefined when adding an extension via one of the methods of the {@link Extensible} interface when
+ * the name of the extension matches the name of a standard OAS schema property.
+ *
  * @see <a href= "https://spec.openapis.org/oas/v3.1.0.html#schema-object">OpenAPI Specification Schema Object</a>
  */
 public interface Schema extends Extensible<Schema>, Constructible, Reference<Schema> {
@@ -2060,6 +2067,9 @@ public interface Schema extends Extensible<Schema>, Constructible, Reference<Sch
      * }
      * </pre>
      *
+     * <p>
+     * Note, if the property is an extension, this method is equivalent to {@link #getExtension(String)}.
+     *
      * @param propertyName
      *            the property name
      * @return the value of the named property, or {@code null} if a property with the given name is not set
@@ -2090,7 +2100,8 @@ public interface Schema extends Extensible<Schema>, Constructible, Reference<Sch
      * </ul>
      *
      * <p>
-     * When using the standard schema dialect, values set by this method can be retrieved by other methods. E.g.
+     * When using the standard schema dialect, values set by this method can be retrieved by other methods provided the
+     * type is compatible. E.g.
      *
      * <pre>
      * {@code
@@ -2098,6 +2109,9 @@ public interface Schema extends Extensible<Schema>, Constructible, Reference<Sch
      * BigDecimal minimum = schema.getMinimum(); // returns 3
      * }
      * </pre>
+     *
+     * <p>
+     * Note, if the property is an extension, this method is equivalent to {@link #addExtension(String, Object)}.
      *
      * @param propertyName
      *            the property name
@@ -2122,7 +2136,8 @@ public interface Schema extends Extensible<Schema>, Constructible, Reference<Sch
     /**
      * Sets all properties of a schema.
      * <p>
-     * Equivalent to clearing all properties and then setting each property with {@link #set(String, Object)}.
+     * Equivalent to clearing all properties, including extensions, and then setting each property with
+     * {@link #set(String, Object)}.
      *
      * @param allProperties
      *            the properties to set. Each value in the map must be valid according to the rules in
@@ -2130,4 +2145,93 @@ public interface Schema extends Extensible<Schema>, Constructible, Reference<Sch
      * @since 4.0
      */
     void setAll(Map<String, ?> allProperties);
+
+    /**
+     * Returns the map of all extension properties of the schema.
+     *
+     * @return a map containing all of this schema's extension properties
+     *
+     * @see <a href="#schema-extensions">Schema Extensions</a>
+     **/
+    @Override
+    Map<String, Object> getExtensions();
+
+    /**
+     * Sets this schema's extension properties to the given map of extensions. Passing an empty map has the effect of
+     * clearing all existing extension properties.
+     *
+     * @param extensions
+     *            map containing the extension properties for this schema
+     * @return the current instance
+     *
+     * @see <a href="#schema-extensions">Schema Extensions</a>
+     */
+    @Override
+    default Schema extensions(Map<String, Object> extensions) {
+        return Extensible.super.extensions(extensions);
+    }
+
+    /**
+     * Sets a schema extension property.
+     *
+     * @param name
+     *            the extension property name
+     * @param value
+     *            extension property value. null values will be rejected (implementation will throw an exception) or
+     *            ignored.
+     * @return the current instance
+     *
+     * @see <a href="#schema-extensions">Schema Extensions</a>
+     */
+    @Override
+    Schema addExtension(String name, Object value);
+
+    /**
+     * Removes the given extension property from the schema.
+     *
+     * @param name
+     *            the extension property name
+     *
+     * @see <a href="#schema-extensions">Schema Extensions</a>
+     */
+    @Override
+    void removeExtension(String name);
+
+    /**
+     * Sets this schema's extension properties to the given map of extensions. Passing an empty map has the effect of
+     * clearing all existing extension properties.
+     *
+     * @param extensions
+     *            map containing the extension properties for this schema
+     *
+     * @see <a href="#schema-extensions">Schema Extensions</a>
+     */
+    @Override
+    void setExtensions(Map<String, Object> extensions);
+
+    /**
+     * Checks whether an extension property with the given name is present on this schema.
+     *
+     * @param name
+     *            the extension property name
+     *
+     * @return {@code true} if an extension with the given name is present, otherwise {@code false}
+     */
+    @Override
+    default boolean hasExtension(String name) {
+        return Extensible.super.hasExtension(name);
+    }
+
+    /**
+     * Returns the extension object with the given name from this schema.
+     *
+     * @param name
+     *            the extension property name
+     *
+     * @return the corresponding extension object, or {@code null} if no extension with the given name is present
+     */
+    @Override
+    default Object getExtension(String name) {
+        return Extensible.super.getExtension(name);
+    }
 }

@@ -23,19 +23,24 @@ import java.util.Map;
  * The base interface for OpenAPI model objects that can contain extensions. Extensions contain data not required by the
  * specification and may or may not be supported by the tools you use.
  * <p>
- * The extensions property names are always prefixed by "x-".
+ * The extension's property names are always prefixed by "x-" unless otherwise specified by sub-interfaces or Extensible
+ * methods overridden therein. Sub-interfaces may also include additional detail regarding the handling of extension
+ * properties and how they relate to other well-known properties of the interface.
+ *
+ * For example, {@link org.eclipse.microprofile.openapi.models.media.Schema Schema} defines such handling and relaxes
+ * the requirement that extension properties are prefixed by "x-".
  */
 public interface Extensible<T extends Extensible<T>> {
 
     /**
-     * Returns the extensions property from an Extensible instance.
+     * Returns the map of all extension properties from an Extensible instance.
      *
      * @return a map containing keys which start with "x-" and values which provide additional information
      **/
     Map<String, Object> getExtensions();
 
     /**
-     * Sets this Extensible's extensions property to the given map of extensions.
+     * Sets this Extensible's extension properties to the given map of extensions.
      *
      * @param extensions
      *            map containing keys which start with "x-" and values which provide additional information
@@ -49,7 +54,7 @@ public interface Extensible<T extends Extensible<T>> {
     }
 
     /**
-     * Adds the given object to this Extensible's map of extensions, with the given name as its key.
+     * Adds the given extension property to this Extensible, with the given name as its key.
      *
      * @param name
      *            the key used to access the extension object. Always prefixed by "x-".
@@ -61,7 +66,7 @@ public interface Extensible<T extends Extensible<T>> {
     T addExtension(String name, Object value);
 
     /**
-     * Removes the given object to this Extensible's map of extensions, with the given name as its key.
+     * Removes an extension with the given property name from this Extensible.
      *
      * @param name
      *            the key used to access the extension object. Always prefixed by "x-".
@@ -69,7 +74,7 @@ public interface Extensible<T extends Extensible<T>> {
     void removeExtension(String name);
 
     /**
-     * Sets this Extensible's extensions property to the given map of extensions.
+     * Sets this Extensible's extension properties to the given map of extensions.
      *
      * @param extensions
      *            map containing keys which start with "x-" and values which provide additional information
@@ -77,7 +82,7 @@ public interface Extensible<T extends Extensible<T>> {
     void setExtensions(Map<String, Object> extensions);
 
     /**
-     * Checks whether an extension with the given name is present in this Extensible's map of extensions.
+     * Checks whether an extension with the given name is present in this Extensible.
      *
      * @param name
      *            the key used to access the extension object. Always prefixed by "x-".
@@ -93,7 +98,7 @@ public interface Extensible<T extends Extensible<T>> {
     }
 
     /**
-     * Returns the extension object with the given name from this Extensible's map of extensions.
+     * Returns the object with the given name from this Extensible's extensions.
      *
      * @param name
      *            the key used to access the extension object. Always prefixed by "x-".

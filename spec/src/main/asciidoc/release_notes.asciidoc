@@ -28,6 +28,7 @@ A full list of changes delivered in the 4.2 release can be found at link:https:/
 ==== API/SPI changes
 
 * Add `example` and `examples` to `@Header` and verify implementation support in TCK (https://github.com/microprofile/microprofile-open-api/issues/697)[697])
+* Override `@Extensible`'s methods in `@Schema`, providing clarification in the documentation on how the methods behave specifically for schemas (https://github.com/microprofile/microprofile-open-api/issues/698[698])
 
 [[other_changes_42]]
 ==== Other Changes
