@@ -33,6 +33,7 @@ A full list of changes delivered in the 4.2 release can be found at link:https:/
 ==== Other Changes
 
 * Add processing of Jakarta Bean Validation `@Digits` annotation (https://github.com/eclipse/microprofile-open-api/issues/717[717])
+* Deprecate the use of `@ExternalDocumentation` on `TYPE` targets (https://github.com/microprofile/microprofile-open-api/issues/725[725])
 
 
 [[release_notes_41]]
