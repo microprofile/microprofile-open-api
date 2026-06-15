@@ -31,9 +31,12 @@ import org.eclipse.microprofile.openapi.annotations.extensions.Extension;
  * When it is applied to a method the value of the annotation is added to the corresponding OpenAPI operation
  * definition.
  * <p>
- * When it is applied to a type and one or more of the fields are not empty strings the annotation value is added to the
- * OpenAPI document root. If more than one non-empty annotation is applied to a type in the application or if the
- * externalDocs field of the OpenAPIDefinition annotation is supplied the results are not defined.
+ * As of version 4.2 of the MicroProfile OpenAPI specification, use of this annotation on a type is deprecated. While
+ * implementations may continue to provide the previously-specified support for setting the documentation in the OpenAPI
+ * document root's {@code externalDocs} property from this annotation, that functionality is neither required nor
+ * recommended by the MicroProfile OpenAPI specification. Developers are instead encouraged to use the
+ * {@link OpenAPIDefinition#externalDocs() externalDocs} property of the {@link OpenAPIDefinition @OpenAPIDefinition}
+ * directly.
  *
  * @see <a href= "https://spec.openapis.org/oas/v3.1.0.html#external-documentation-object">OpenAPI Specification
  *      External Documentation Object</a>
