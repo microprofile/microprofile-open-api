@@ -52,5 +52,5 @@ module org.eclipse.microprofile.openapi {
 
     // Required for compilation, not used at runtime
     requires static osgi.annotation;
-
+    requires static biz.aQute.bnd.annotation;
 }

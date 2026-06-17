@@ -33,6 +33,12 @@
             <artifactId>osgi.annotation</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>biz.aQute.bnd</groupId>
+            <artifactId>biz.aQute.bnd.annotation</artifactId>
+            <version>7.0.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>

@@ -2167,6 +2167,7 @@ public interface Schema extends Extensible<Schema>, Constructible, Reference<Sch
      * @see <a href="#schema-extensions">Schema Extensions</a>
      */
     @Override
+    @aQute.bnd.annotation.baseline.BaselineIgnore("4.2.0")
     default Schema extensions(Map<String, Object> extensions) {
         return Extensible.super.extensions(extensions);
     }
@@ -2184,6 +2185,7 @@ public interface Schema extends Extensible<Schema>, Constructible, Reference<Sch
      * @see <a href="#schema-extensions">Schema Extensions</a>
      */
     @Override
+    @aQute.bnd.annotation.baseline.BaselineIgnore("4.2.0")
     Schema addExtension(String name, Object value);
 
     /**
