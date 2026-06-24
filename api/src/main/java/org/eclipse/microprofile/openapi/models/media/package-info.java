@@ -30,6 +30,6 @@
  * </pre>
  */
 
-@org.osgi.annotation.versioning.Version("3.1")
+@org.osgi.annotation.versioning.Version("3.2")
 @org.osgi.annotation.versioning.ProviderType
 package org.eclipse.microprofile.openapi.models.media;
