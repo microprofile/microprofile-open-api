@@ -36,7 +36,7 @@
         <dependency>
             <groupId>biz.aQute.bnd</groupId>
             <artifactId>biz.aQute.bnd.annotation</artifactId>
-            <version>7.0.0</version>
+            <version>${version.plugin.bnd}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
