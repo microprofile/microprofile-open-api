@@ -19,7 +19,7 @@
     <parent>
         <groupId>org.eclipse.microprofile</groupId>
         <artifactId>microprofile-parent</artifactId>
-        <version>2.12</version>
+        <version>2.13-RC1</version>
     </parent>
 
     <groupId>org.eclipse.microprofile.openapi</groupId>
@@ -42,13 +42,14 @@
         <jakarta.xml.bind-api.version>3.0.1</jakarta.xml.bind-api.version>
         <jakarta.validation-api.version>3.0.2</jakarta.validation-api.version>
         <!-- We can use the 3.x TCK BOM even though we use the 2.x parent because we're targetting Java 11 -->
-        <version.microprofile.tck.bom>3.4</version.microprofile.tck.bom>
+        <version.microprofile.tck.bom>3.7</version.microprofile.tck.bom>
         <!--
           The commons-lang3 version must be managed to override an old version
           selected via the TCK BOM's import chain (Arquillian/Shrinkwrap). Remove
           this and the dependency managed in the tck module when no longer needed.
         -->
         <version.commons-lang3>3.20.0</version.commons-lang3>
+        <staging.prefix>microprofile-open-api</staging.prefix>
     </properties>
 
     <developers>
